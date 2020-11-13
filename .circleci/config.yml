@@ -1,0 +1,36 @@
+version: 2.1
+orbs:
+  cfy-ci: cloudify/cfy@dev:1.0.2
+jobs:
+  test-feature:
+    executor: cfy-ci/default
+    steps:
+      - checkout
+      - cfy-ci/create:
+          environment-name: product-feature-${CIRCLE_BUILD_NUM}
+          blueprint: cloudify/blueprint.yaml
+      - cfy-ci/delete:
+          environment-name: product-feature-${CIRCLE_BUILD_NUM}
+  integration:
+    executor: cfy-ci/default
+    steps:
+      - checkout
+      - cfy-ci/cli:
+          command: "blueprints upload cloudify/blueprint.yaml -b app_blueprint_${CIRCLE_BUILD_NUM}"
+      - cfy-ci/install-or-update:
+          environment-name: test_deployment_circleci
+          blueprint-id: app_blueprint_${CIRCLE_BUILD_NUM}
+          delete-old-blueprint: true
+workflows:
+  build:
+    jobs:
+      - test-feature:
+          filters:
+            branches:
+              only:
+                - /^feature/.*/
+      - integration:
+          filters:
+            branches:
+              only:
+                - /^develop/
