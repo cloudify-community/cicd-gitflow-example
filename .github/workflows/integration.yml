@@ -10,11 +10,11 @@ jobs:
         uses: actions/checkout@v2
       - name: Upload blueprint
         id: upload-blueprint
-        uses: cloudify-cosmo/cli-action@v1.0
+        uses: cloudify-cosmo/cli-action@v1.1
         with:
           command: blueprints upload cloudify/blueprint.yaml -b $APP_BLUEPRINT_ID
       - name: Install or update deployment
-        uses: cloudify-cosmo/install-or-update-action@v1.0
+        uses: cloudify-cosmo/install-or-update-action@v1.1
         with:
           environment-name: $APP_DEPLOYMENT_ID
           blueprint-id: $APP_BLUEPRINT_ID

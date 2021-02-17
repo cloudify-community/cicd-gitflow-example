@@ -9,12 +9,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Install environment on test tenant
-        uses: cloudify-cosmo/create-environment-action@v1.0
+        uses: cloudify-cosmo/create-environment-action@v1.1
         with:
           environment-name: product-feature-$GITHUB_RUN_ID
           blueprint: cloudify/blueprint.yaml
       - name: Delete environment from test tenant
-        uses: cloudify-cosmo/delete-environment-action@v1.0
+        uses: cloudify-cosmo/delete-environment-action@v1.1
         with:
           environment-name: product-feature-$GITHUB_RUN_ID
           delete-blueprint: true
