@@ -12,6 +12,14 @@ node_templates:
           implementation: scripts/hello.py
           executor: central_deployment_agent
 
+  world:
+    type: cloudify.nodes.Root
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          implementation: scripts/world.py
+          executor: central_deployment_agent
+
 outputs:
   host:
     description: Host name
